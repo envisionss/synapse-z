@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Reveal Example</title>
+    <style>
+        body {
+            background-color: rgb(12, 12, 12);
+            margin: 0;
+            height: 100vh;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            overflow: hidden; /* Ensure no scrollbars appear */
+        }
+        .hidden {
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .visible {
+            opacity: 1;
+        }
+        .big-text, .small-text {
+            position: relative;
+            top: -150px; /* Move both texts up further */
+        }
+        .big-text {
+            font-size: 2em;
+            font-weight: bold;
+        }
+        .small-text {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        /* Button styling */
+        #pricesButton {
+            display: none; /* Initially hidden */
+            background-color: white; /* White background */
+            border: 2px solid black; /* Black border */
+            color: black; /* Black text */
+            padding: 15px 60px; /* Longer button */
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1.2em;
+            border-radius: 12px; /* Slightly rounded corners */
+            transition: transform 0.5s, box-shadow 0.5s; /* Smooth transition */
+            margin-top: 20px; /* Space between button and text */
+            cursor: pointer; /* Pointer cursor on hover */
+            position: relative;
+        }
+        #pricesButton.visible {
+            display: inline-block;
+            opacity: 1;
+        }
+        #pricesButton::before, #pricesButton::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.1);
+            transition: transform 0.5s, opacity 0.5s;
+            z-index: -1;
+        }
+        #pricesButton::before {
+            transform: scale(1.1);
+        }
+        #pricesButton:hover::before {
+            transform: scale(1.2);
+        }
+        #pricesButton::after {
+            opacity: 0;
+            transform: rotateX(90deg);
+        }
+        #pricesButton:hover::after {
+            opacity: 1;
+            transform: rotateX(0deg);
+        }
+        #pricesButton:hover {
+            transform: perspective(600px) rotateX(10deg);
+        }
+    </style>
+</head>
+<body>
+    <div id="text1" class="hidden big-text">Vylu Executor - One Of The Best On The Market</div>
+    <div id="text2" class="hidden small-text">Daily Updates - 100% Unc - Lvl 8</div>
+    <button id="pricesButton" class="hidden">Prices</button> <!-- Added button -->
+
+    <script>
+        // Function to reveal text and button with a delay
+        function revealText() {
+            const text1 = document.getElementById('text1');
+            const text2 = document.getElementById('text2');
+            const pricesButton = document.getElementById('pricesButton');
+
+            setTimeout(() => {
+                text1.classList.add('visible');
+            }, 400); // 0.4 seconds delay
+
+            setTimeout(() => {
+                text2.classList.add('visible');
+            }, 1000); // 0.6 seconds after the first text appears
+
+            setTimeout(() => {
+                pricesButton.classList.add('visible');
+            }, 1600); // 0.6 seconds after the second text appears
+        }
+
+        // Function to handle button click
+        function handleButtonClick() {
+            window.location.href = 'prices.html';
+        }
+
+        // Call the function to reveal text on page load
+        window.onload = function() {
+            revealText();
+            document.getElementById('pricesButton').onclick = handleButtonClick;
+        };
+    </script>
+</body>
+</html>
